@@ -1,0 +1,5 @@
+GSAP 3.15.0 (gsap.com), Copyright 2008-2026 GreenSock / Webflow.
+Licensed under the GSAP Standard "No Charge" License: https://gsap.com/standard-license
+Free for commercial use, including all plugins (ScrollTrigger, SplitText).
+Prohibited: using GSAP inside a tool that competes with Webflow's visual website builder.
+Client websites are a permitted use.

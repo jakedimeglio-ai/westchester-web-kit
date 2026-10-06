@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Local business extras | Westchester Web Design</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@1.52.0/dist/umd/lucide.min.js"></script>
+  <!-- Before/after slider (local copies: ../vendor/img-comparison-slider-8.0.7.js + .css) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8.0.7/dist/styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8.0.7/dist/index.js"></script>
+  <style>
+    img-comparison-slider { --divider-width: 3px; --default-handle-color: #fff; border-radius: 16px; overflow: hidden; }
+    img-comparison-slider img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+  </style>
+</head>
+<body class="bg-white pb-20 font-sans text-neutral-900 antialiased md:pb-0">
+<main class="mx-auto grid max-w-3xl gap-14 px-5 py-12">
+
+  <!-- 1. OPEN NOW BADGE: always uses New York time, whatever the visitor's timezone. Edit HOURS once. -->
+  <section>
+    <h2 class="mb-3 text-sm font-semibold uppercase tracking-widest text-neutral-500">1. Open-now badge</h2>
+    <p id="openBadge" class="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-4 py-2 text-sm font-semibold">
+      <span class="size-2.5 rounded-full bg-neutral-400"></span><span>Hours</span>
+    </p>
+  </section>
+
+  <!-- 2. GOOGLE REVIEW BUTTON: opens the "write a review" box directly. Find the Place ID at
+       developers.google.com/maps/documentation/places/web-service/place-id -->
+  <section>
+    <h2 class="mb-3 text-sm font-semibold uppercase tracking-widest text-neutral-500">2. Review button</h2>
+    <a href="https://search.google.com/local/writereview?placeid=PLACE_ID" target="_blank" rel="noopener"
+       class="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-5 py-3 font-semibold hover:bg-neutral-50">
+      <i data-lucide="star" class="size-5 fill-amber-400 text-amber-400"></i> Leave us a Google review
+    </a>
+  </section>
+
+  <!-- 3. MAP: free Google Maps embed, no API key. Works on the live site (claude.ai previews block embedded maps). -->
+  <section>
+    <h2 class="mb-3 text-sm font-semibold uppercase tracking-widest text-neutral-500">3. Map</h2>
+    <iframe title="Map" class="h-72 w-full rounded-2xl border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://maps.google.com/maps?q=123+Main+St,+Hawthorne,+NY+10532&output=embed"></iframe>
+  </section>
+
+  <!-- 4. BEFORE / AFTER SLIDER: drag to compare. Detailing, landscaping, fab work, remodels, cleaning. -->
+  <section>
+    <h2 class="mb-3 text-sm font-semibold uppercase tracking-widest text-neutral-500">4. Before / after</h2>
+    <img-comparison-slider>
+      <img slot="first" alt="Before" src="before.jpg" />
+      <img slot="second" alt="After" src="after.jpg" />
+    </img-comparison-slider>
+  </section>
+</main>
+
+<!-- 5. MOBILE ACTION BAR: Call / Text / Directions pinned to the bottom of phones (hidden on desktop).
+     Keep body "pb-20 md:pb-0" so it never covers the last thing on the page. -->
+<nav class="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 border-t border-neutral-200 bg-white/95 backdrop-blur md:hidden"
+     style="padding-bottom: env(safe-area-inset-bottom)">
+  <a href="tel:+19145550123" class="flex flex-col items-center gap-1 py-3 text-xs font-semibold"><i data-lucide="phone" class="size-5"></i>Call</a>
+  <a href="sms:+19145550123" class="flex flex-col items-center gap-1 py-3 text-xs font-semibold"><i data-lucide="message-circle" class="size-5"></i>Text</a>
+  <a href="https://www.google.com/maps/dir/?api=1&destination=123+Main+St,+Hawthorne,+NY+10532" target="_blank" rel="noopener"
+     class="flex flex-col items-center gap-1 py-3 text-xs font-semibold"><i data-lucide="navigation" class="size-5"></i>Directions</a>
+</nav>
+
+<script>
+  if (window.lucide) lucide.createIcons();
+
+  // ---- Open-now badge ----
+  // Times are 24h "HH:MM" in the business's local time. Leave a day empty [] if closed.
+  var HOURS = {
+    mon: [['08:00', '18:00']], tue: [['08:00', '18:00']], wed: [['08:00', '18:00']],
+    thu: [['08:00', '18:00']], fri: [['08:00', '18:00']], sat: [['09:00', '14:00']], sun: []
+  };
+  var TZ = 'America/New_York';
+  var DAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+  var NAMES = { sun: 'Sunday', mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday' };
+
+  function nowInTZ(date) {
+    var p = {};
+    new Intl.DateTimeFormat('en-US', { timeZone: TZ, weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+      .formatToParts(date || new Date()).forEach(function (x) { p[x.type] = x.value; });
+    return { day: p.weekday.slice(0, 3).toLowerCase(), min: (+p.hour) * 60 + (+p.minute) };
+  }
+  function toMin(t) { var a = t.split(':'); return +a[0] * 60 + +a[1]; }
+  function nice(t) {
+    var m = toMin(t), h = Math.floor(m / 60), mm = m % 60, ap = h >= 12 ? 'pm' : 'am';
+    h = h % 12 || 12; return h + (mm ? ':' + String(mm).padStart(2, '0') : '') + ap;
+  }
+  function openStatus(date) {
+    var n = nowInTZ(date), di = DAYS.indexOf(n.day), today = HOURS[n.day] || [];
+    for (var i = 0; i < today.length; i++) {
+      var o = toMin(today[i][0]), c = toMin(today[i][1]);
+      if (n.min >= o && n.min < c) return { open: true, text: 'Open now \u00b7 closes ' + nice(today[i][1]) };
+      if (n.min < o) return { open: false, text: 'Closed \u00b7 opens ' + nice(today[i][0]) + ' today' };
+    }
+    for (var k = 1; k <= 7; k++) {
+      var d = DAYS[(di + k) % 7], h = HOURS[d] || [];
+      if (h.length) return { open: false, text: 'Closed \u00b7 opens ' + (k === 1 ? 'tomorrow' : NAMES[d]) + ' ' + nice(h[0][0]) };
+    }
+    return { open: false, text: 'Closed' };
+  }
+  function paintBadge() {
+    var el = document.getElementById('openBadge'); if (!el) return;
+    var s = openStatus();
+    el.className = 'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ' + (s.open ? 'bg-emerald-50 text-emerald-800' : 'bg-neutral-100 text-neutral-700');
+    el.innerHTML = '<span class="size-2.5 rounded-full ' + (s.open ? 'bg-emerald-500' : 'bg-neutral-400') + '"></span><span>' + s.text + '</span>';
+  }
+  paintBadge(); setInterval(paintBadge, 60000);
+</script>
+</body>
+</html>

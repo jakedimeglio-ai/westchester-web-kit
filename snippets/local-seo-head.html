@@ -1,0 +1,63 @@
+<!--
+  LOCAL SEO HEAD: paste inside <head> on every client site, then fill in the CAPS.
+  What it does:
+  - title + description: what shows in Google results
+  - Open Graph: the preview card when someone texts or posts the link (iMessage, Facebook, Instagram DMs)
+  - LocalBusiness schema: tells Google the address, hours, phone and service area (helps Maps + local results)
+  Check it after launch: search.google.com/test/rich-results
+  Do NOT add star ratings (aggregateRating) to the schema. Google ignores self-posted review stars for local businesses.
+-->
+<title>BUSINESS NAME | SERVICE in TOWN, NY</title>
+<meta name="description" content="ONE OR TWO SENTENCES: what they do, where, why call them. Under 155 characters." />
+<link rel="canonical" href="https://DOMAIN.com/" />
+
+<!-- Link preview card (texts, Facebook, Instagram DMs). Image: 1200x630 JPG of their best work or storefront. -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="BUSINESS NAME | SERVICE in TOWN, NY" />
+<meta property="og:description" content="SAME AS THE DESCRIPTION ABOVE" />
+<meta property="og:url" content="https://DOMAIN.com/" />
+<meta property="og:image" content="https://DOMAIN.com/og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Icons (Claude can generate this set from their logo) -->
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<meta name="theme-color" content="#111111" />
+
+<!-- LocalBusiness schema. Swap "LocalBusiness" for a specific type when one fits:
+     AutoRepair, AutoBodyShop, Restaurant, CafeOrCoffeeShop, IceCreamShop, Bakery, HairSalon, BeautySalon,
+     HomeAndConstructionBusiness (landscapers, fab shops, general trades), Plumber, Electrician, HVACBusiness,
+     RoofingContractor, GeneralContractor, Store, ExerciseGym, Dentist, Attorney -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "BUSINESS NAME",
+  "url": "https://DOMAIN.com/",
+  "telephone": "+1-914-555-0123",
+  "email": "hello@DOMAIN.com",
+  "image": "https://DOMAIN.com/og.jpg",
+  "logo": "https://DOMAIN.com/logo.png",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 MAIN ST",
+    "addressLocality": "HAWTHORNE",
+    "addressRegion": "NY",
+    "postalCode": "10532",
+    "addressCountry": "US"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 41.1073, "longitude": -73.7962 },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "14:00" }
+  ],
+  "areaServed": ["Hawthorne", "Thornwood", "Valhalla", "Pleasantville", "White Plains"],
+  "sameAs": [
+    "https://www.instagram.com/HANDLE",
+    "https://www.facebook.com/PAGE",
+    "https://maps.google.com/?cid=GOOGLE_CID"
+  ]
+}
+</script>

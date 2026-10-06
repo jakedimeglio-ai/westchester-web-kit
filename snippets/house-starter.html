@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Business Name | Westchester Web Design starter</title>
+  <meta name="description" content="One sentence about the business, the town, and what they do." />
+  <!-- Tailwind v4 (no build step). Local copy: ../vendor/tailwind-browser-4.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- Icons: <i data-lucide="phone"></i>. Local copy: ../vendor/lucide.min.js -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@1.52.0/dist/umd/lucide.min.js"></script>
+  <style>
+    /* HOUSE STANDARD: reveal footer. The footer is pinned behind the page and the content slides up off it. */
+    .ww-page { position: relative; z-index: 1; background: #fff; box-shadow: 0 30px 60px -30px rgba(0,0,0,.5); }
+    .ww-reveal { position: sticky; bottom: 0; z-index: 0; }
+    .ww-reveal.ww-static { position: static; } /* fallback when the footer is taller than the screen */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-neutral-950 font-sans text-neutral-900 antialiased">
+
+  <main class="ww-page">
+    <header class="mx-auto flex max-w-6xl items-center justify-between px-5 py-5">
+      <a href="#" class="text-lg font-bold tracking-tight">Business Name</a>
+      <a href="tel:+19145550123" class="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-4 py-2 text-sm font-semibold text-white">
+        <i data-lucide="phone" class="size-4"></i> (914) 555-0123
+      </a>
+    </header>
+
+    <section class="mx-auto max-w-6xl px-5 py-20 sm:py-28">
+      <p class="text-sm font-semibold uppercase tracking-widest text-emerald-600">Hawthorne, NY</p>
+      <h1 class="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight sm:text-6xl">The headline that says exactly what they do.</h1>
+      <p class="mt-5 max-w-2xl text-lg text-neutral-600">Short supporting line. Who it's for, why them, what to do next.</p>
+      <a href="#contact" class="mt-8 inline-block rounded-lg bg-emerald-600 px-6 py-3 font-semibold text-white hover:bg-emerald-700">Get a free quote</a>
+    </section>
+
+    <!-- Paste sections from ../sections/ here (testimonials, faqs, feature-grids, pricing...) -->
+
+    <!-- HOUSE STANDARD: Web3Forms contact form. Get the client's free access key at web3forms.com -->
+    <section id="contact" class="bg-neutral-50">
+      <div class="mx-auto max-w-2xl px-5 py-20">
+        <h2 class="text-3xl font-bold tracking-tight">Get in touch</h2>
+        <p class="mt-2 text-neutral-600">We reply within one business day.</p>
+        <form class="ww-form mt-8 grid gap-4" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+          <input type="hidden" name="subject" value="New message from your website" />
+          <input type="hidden" name="from_name" value="Business Name Website" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+          <div class="grid gap-4 sm:grid-cols-2">
+            <label class="grid gap-1 text-sm font-medium">Name
+              <input name="name" required class="rounded-lg border border-neutral-300 px-3 py-2.5 text-base font-normal outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20" />
+            </label>
+            <label class="grid gap-1 text-sm font-medium">Phone
+              <input name="phone" type="tel" class="rounded-lg border border-neutral-300 px-3 py-2.5 text-base font-normal outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20" />
+            </label>
+          </div>
+          <label class="grid gap-1 text-sm font-medium">Email
+            <input name="email" type="email" required class="rounded-lg border border-neutral-300 px-3 py-2.5 text-base font-normal outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20" />
+          </label>
+          <label class="grid gap-1 text-sm font-medium">How can we help?
+            <textarea name="message" rows="5" required class="rounded-lg border border-neutral-300 px-3 py-2.5 text-base font-normal outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20"></textarea>
+          </label>
+          <button type="submit" class="rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-white disabled:opacity-50">Send message</button>
+          <p class="ww-ok hidden rounded-lg bg-emerald-50 p-3 text-emerald-800">Thanks! We'll get back to you shortly.</p>
+          <p class="ww-err hidden rounded-lg bg-red-50 p-3 text-red-800">Something went wrong. Please call us instead.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ww-reveal bg-neutral-950 text-neutral-300">
+    <div class="mx-auto grid max-w-6xl gap-8 px-5 py-14 sm:grid-cols-3">
+      <div>
+        <p class="text-xl font-bold text-white">Business Name</p>
+        <p class="mt-2 text-sm">123 Main St, Hawthorne, NY 10532</p>
+      </div>
+      <div class="text-sm">
+        <p class="font-semibold text-white">Hours</p>
+        <p class="mt-2">Mon to Fri 8am to 6pm<br />Sat 9am to 2pm</p>
+      </div>
+      <div class="text-sm">
+        <p class="font-semibold text-white">Contact</p>
+        <p class="mt-2"><a href="tel:+19145550123" class="hover:text-white">(914) 555-0123</a><br /><a href="mailto:hello@example.com" class="hover:text-white">hello@example.com</a></p>
+      </div>
+    </div>
+    <p class="border-t border-white/10 px-5 py-5 text-center text-xs text-neutral-500">&copy; <span id="yr"></span> Business Name. Site by Westchester Web Design.</p>
+  </footer>
+
+  <script>
+    if (window.lucide) lucide.createIcons();
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Reveal footer: use a normal footer when it is taller than the screen, so nothing gets cut off.
+    (function () {
+      var f = document.querySelector('.ww-reveal');
+      function fit() { f.classList.toggle('ww-static', f.offsetHeight > window.innerHeight * 0.9); }
+      fit(); window.addEventListener('resize', fit);
+    })();
+
+    // Web3Forms: submit in place and show a message instead of leaving the page.
+    document.querySelectorAll('form.ww-form').forEach(function (f) {
+      f.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var ok = f.querySelector('.ww-ok'), err = f.querySelector('.ww-err'), btn = f.querySelector('[type=submit]');
+        ok.classList.add('hidden'); err.classList.add('hidden'); btn.disabled = true;
+        try {
+          var r = await fetch(f.action, { method: 'POST', body: new FormData(f) });
+          var j = await r.json();
+          if (!j.success) throw new Error(j.message);
+          f.reset(); ok.classList.remove('hidden');
+        } catch (x) { err.classList.remove('hidden'); }
+        btn.disabled = false;
+      });
+    });
+  </script>
+</body>
+</html>
